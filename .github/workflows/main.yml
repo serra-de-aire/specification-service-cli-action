@@ -1,0 +1,17 @@
+name: Testing integration with specification service webhook
+
+on:
+  push:
+
+jobs:
+  curl-job:
+    name: Curl for Github Actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: curl
+        env:
+          SPEC_SERVICE_URL: http://testing.env.com/events
+        run: |
+          RANDOM_INT_ID=$((RANDOM % 3) + 1)
+          response=$(curl -X POST -H "Content-Type: application/json" $SPEC_SERVICE_URL -d '{"id": $RANDOM_INT_ID, "name":"githut push event", "subject":"commit_created"}')
+          echo Response:$response
