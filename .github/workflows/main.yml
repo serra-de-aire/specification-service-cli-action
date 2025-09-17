@@ -10,8 +10,7 @@ jobs:
     steps:
       - name: generate request body
         run: |
-          # TODO: add repo name, commit hash
-          JSON_PAYLOAD='{"id": $RANDOM, "name":"githut push event", "subject":"commit_created"}'
+          JSON_PAYLOAD='{"name":"github push event commit_created", "subject":"repository:${{ GITHUB_REPOSITORY }};commit:${{ GITHUB_SHA }}"}'
           echo 'JSON_PAYLOAD='$JSON_PAYLOAD >> $GITHUB_ENV
       - name: curl
         env:
