@@ -11,8 +11,7 @@ jobs:
       - name: curl
         env:
           SPEC_SERVICE_URL: https://specification-service.onrender.com/events
-          RANDOM_INT_ID: ${{ (((RANDOM % 3) + 1)) }}
         run: |
-          echo curl -X POST -H "Content-Type: application/json" $SPEC_SERVICE_URL -d '{"id": $RANDOM_INT_ID, "name":"githut push event", "subject":"commit_created"}'
+          RANDOM_INT_ID=$RANDOM
           response=$(curl -X POST -H "Content-Type: application/json" $SPEC_SERVICE_URL -d '{"id": $RANDOM_INT_ID, "name":"githut push event", "subject":"commit_created"}')
           echo Response:$response
