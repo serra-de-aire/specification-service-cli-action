@@ -8,12 +8,14 @@ jobs:
     name: Curl for Github Actions
     runs-on: ubuntu-latest
     steps:
+      - name: generate request body
+        run: |
+          # TODO: add repo name, commit hash
+          JSON_PAYLOAD='{"id": $RANDOM, "name":"githut push event", "subject":"commit_created"}'
+          echo 'JSON_PAYLOAD='$JSON_PAYLOAD >> $GITHUB_ENV
       - name: curl
         env:
           SPEC_SERVICE_URL: https://specification-service.onrender.com/events
         run: |
-          RANDOM_INT_ID=$RANDOM
-          echo "RANDOM": $RANDOM
-          echo "RANDOM_INT_ID": $RANDOM_INT_ID
-          response=$(curl -X POST -H "Content-Type: application/json" $SPEC_SERVICE_URL -d '{"id": $RANDOM, "name":"githut push event", "subject":"commit_created"}')
+          response=$(curl -X POST -H "Content-Type: application/json" $SPEC_SERVICE_URL -d '$JSON_PAYLOAD')
           echo Response:$response
