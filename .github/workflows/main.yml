@@ -10,11 +10,12 @@ jobs:
     steps:
       - name: generate request body
         run: |
-          JSON_PAYLOAD="{\"name\":\"github push event commit_created\", \"subject\":\"repository:\${{ github.repository }};commit:${{ github.sha }}\"}"
-          echo 'JSON_PAYLOAD='$JSON_PAYLOAD >> $GITHUB_ENV
+          JSON_PAYLOAD="{\"name\":\"github push event commit_created\", \"subject\":\"repository:${{ github.repository }};commit:${{ github.sha }}\"}"
+          echo "JSON_PAYLOAD="$JSON_PAYLOAD >> $GITHUB_ENV
       - name: curl
         env:
           SPEC_SERVICE_URL: https://specification-service.onrender.com/events
         run: |
+          echo "curl -X POST -H \"Content-Type: application/json\" $SPEC_SERVICE_URL -d \"$JSON_PAYLOAD\""
           response=$(curl -X POST -H "Content-Type: application/json" $SPEC_SERVICE_URL -d "$JSON_PAYLOAD")
           echo Response:$response
