@@ -16,5 +16,5 @@ jobs:
         env:
           SPEC_SERVICE_URL: https://specification-service.onrender.com/events
         run: |
-          response=$(curl -X POST -H "Content-Type: application/json" $SPEC_SERVICE_URL -d '$JSON_PAYLOAD')
+          response=$(curl -X POST -H "Content-Type: application/json" $SPEC_SERVICE_URL -d "'$JSON_PAYLOAD'")
           echo Response:$response
